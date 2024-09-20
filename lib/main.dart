@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:latlong2/latlong.dart'; // LatLngの使用
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Flutter Map with Bounds',
+      title: 'Flutter Map with Latest Version',
       home: MapWithBounds(),
     );
   }
@@ -32,24 +32,24 @@ class _MapWithBoundsState extends State<MapWithBounds> {
   void initState() {
     super.initState();
 
-    // 初期化時に地図の範囲を設定
+    // 初期化後に地図の範囲を設定
     WidgetsBinding.instance.addPostFrameCallback((_) {
       fitMapToBounds();
     });
   }
 
   void fitMapToBounds() {
-    // 表示したい範囲を定義 (東京から大阪)
+    // 表示したい範囲を設定 (例えば、東京と大阪)
     LatLngBounds bounds = LatLngBounds(
-      LatLng(34.6937, 135.5023), // 大阪 (南西)
-      LatLng(35.6895, 139.6917), // 東京 (北東)
+      const LatLng(34.6937, 135.5023), // 大阪 (南西端)
+      const LatLng(35.6895, 139.6917), // 東京 (北東端)
     );
 
-    // 地図を指定した範囲にフィット
+    // 地図の表示範囲を指定
     _mapController.fitBounds(
       bounds,
       options: const FitBoundsOptions(
-        padding: EdgeInsets.all(50.0), // パディングを設定
+        padding: EdgeInsets.all(100.0), // 地図の端に余白を設定
       ),
     );
   }
@@ -63,7 +63,7 @@ class _MapWithBoundsState extends State<MapWithBounds> {
       body: FlutterMap(
         mapController: _mapController,
         options: MapOptions(
-          center: LatLng(35.0, 137.0), // 中央の初期位置
+          center: const LatLng(35.1916, 137.597), // 中央の初期位置
           zoom: 5.0, // 初期ズームレベル
         ),
         children: [
@@ -76,6 +76,8 @@ class _MapWithBoundsState extends State<MapWithBounds> {
     );
   }
 }
+
+
 
 
 /*
@@ -144,5 +146,9 @@ class _MapWithBoundsState extends State<MapWithBounds> {
 
 地図の中央を手動で指定する場合、この方法で2つの地点の間の中心を簡単に割り出すことが可能です。
 
+
+
+
 */
+
 
